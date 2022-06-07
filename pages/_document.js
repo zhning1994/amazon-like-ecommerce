@@ -6,7 +6,7 @@ import createCache from '@emotion/cache';
 export default class MyDocument extends Document {
     render() {
         return (
-            <Html>
+            <Html lang="en">
                 <Head>
                     <link
                         rel="stylesheet"
@@ -18,7 +18,7 @@ export default class MyDocument extends Document {
                     <NextScript />
                 </body>
             </Html>
-        )
+        );
     }
 }
 
