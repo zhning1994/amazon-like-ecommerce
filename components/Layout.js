@@ -39,7 +39,7 @@ export default function Layout({ title, description, children }) {
         <>
             <Head>
                 <title>
-                    <title>{title ? `${title} - Ning Ecommerce` : 'Ning Ecommerce'}</title>
+                    {title ? `${title} - Ning Ecommerce` : 'Ning Ecommerce'}
                     {description && <meta name="description" content={description}></meta>}
                 </title>
             </Head>
