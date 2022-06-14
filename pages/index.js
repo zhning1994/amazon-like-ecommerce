@@ -15,15 +15,12 @@ export default function Home() {
     state: { cart },
     dispatch,
   } = useContext(Store);
-
   const { enqueueSnackbar } = useSnackbar();
-
   const [state, setState] = useState({
     products: [],
     error: '',
     loading: true,
   });
-
   const { loading, error, products } = state;
 
   useEffect(() => {
@@ -31,11 +28,10 @@ export default function Home() {
       try {
         const products = await client.fetch(`*[_type == "product"]`);
         setState({ products, loading: false });
-      } catch (error) {
-        setState({ loading: false, error: error.message });
+      } catch (err) {
+        setState({ loading: false, error: err.message });
       }
     };
-
     fetchData();
   }, []);
 
@@ -62,13 +58,11 @@ export default function Home() {
     enqueueSnackbar(`${product.name} added to the cart`, {
       variant: 'success',
     });
-
     router.push('/cart');
   };
 
   return (
     <Layout>
-      {' '}
       {loading ? (
         <CircularProgress />
       ) : error ? (

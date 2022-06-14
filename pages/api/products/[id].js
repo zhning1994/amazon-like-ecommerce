@@ -9,5 +9,4 @@ handler.get(async (req, res) => {
   });
   res.send(product);
 });
-
 export default handler;

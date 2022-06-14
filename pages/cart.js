@@ -26,7 +26,7 @@ import { useSnackbar } from 'notistack';
 import { Store } from '../utils/Store';
 import axios from 'axios';
 
-const CartScreen = () => {
+function CartScreen() {
   const router = useRouter();
   const {
     state: {
@@ -34,6 +34,7 @@ const CartScreen = () => {
     },
     dispatch,
   } = useContext(Store);
+
   const { enqueueSnackbar } = useSnackbar();
 
   const updateCartHandler = async (item, quantity) => {
@@ -58,11 +59,9 @@ const CartScreen = () => {
       variant: 'success',
     });
   };
-
   const removeItemHandler = (item) => {
     dispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
-
   return (
     <Layout title="Shopping Cart">
       <Typography component="h1" variant="h1">
@@ -71,7 +70,7 @@ const CartScreen = () => {
       {cartItems.length === 0 ? (
         <Box>
           <Typography>
-            Cart is empty.
+            Cart is empty.{' '}
             <NextLink href="/" passHref>
               <Link>Go shopping</Link>
             </NextLink>
@@ -126,7 +125,7 @@ const CartScreen = () => {
                         </Select>
                       </TableCell>
                       <TableCell align="right">
-                        <Typography>${item.price}</Typography>
+                        <Typography>RM {item.price}</Typography>
                       </TableCell>
                       <TableCell align="right">
                         <Button
@@ -170,6 +169,6 @@ const CartScreen = () => {
       )}
     </Layout>
   );
-};
+}
 
 export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

@@ -36,20 +36,18 @@ export default function ProductScreen(props) {
     loading: true,
     error: '',
   });
-
   const { product, loading, error } = state;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const product = await client.fetch(
           `
-                    *[_type == "product" && slug.current ==  $slug][0]`,
+            *[_type == "product" && slug.current == $slug][0]`,
           { slug }
         );
         setState({ ...state, product, loading: false });
-      } catch (error) {
-        setState({ ...state, error: error.message, loading: false });
+      } catch (err) {
+        setState({ ...state, error: err.message, loading: false });
       }
     };
     fetchData();
@@ -78,10 +76,8 @@ export default function ProductScreen(props) {
     enqueueSnackbar(`${product.name} added to the cart`, {
       variant: 'success',
     });
-
     router.push('/cart');
   };
-
   return (
     <Layout title={product?.title}>
       {loading ? (
@@ -107,7 +103,7 @@ export default function ProductScreen(props) {
                 height={640}
               />
             </Grid>
-            <Grid md={3} xs={12}>
+            <Grid item md={3} xs={12}>
               <List>
                 <ListItem>
                   <Typography component="h1" variant="h1">
@@ -136,7 +132,7 @@ export default function ProductScreen(props) {
                         <Typography>Price</Typography>
                       </Grid>
                       <Grid item xs={6}>
-                        <Typography>RM {product.price}</Typography>
+                        <Typography>RM{product.price}</Typography>
                       </Grid>
                     </Grid>
                   </ListItem>
@@ -155,7 +151,10 @@ export default function ProductScreen(props) {
                     </Grid>
                   </ListItem>
                   <ListItem>
-                    <Button onClick={addToCartHandler} variant="contained">
+                    <Button
+                      onClick={addToCartHandler}
+                      fullWidth
+                      variant="contained">
                       Add to cart
                     </Button>
                   </ListItem>

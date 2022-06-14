@@ -1,15 +1,15 @@
-import React from 'react';
 import {
+  Button,
   Card,
   CardActionArea,
   CardActions,
-  CardMedia,
   CardContent,
-  Typography,
-  Button,
+  CardMedia,
   Rating,
+  Typography,
 } from '@mui/material';
 import NextLink from 'next/link';
+import React from 'react';
 import { urlForThumbnail } from '../utils/image';
 
 export default function ProductItem({ product, addToCartHandler }) {
