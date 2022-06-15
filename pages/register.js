@@ -16,6 +16,7 @@ import axios from 'axios';
 import jsCookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import { Store } from '../utils/Store';
+import { getError } from '../utils/error';
 
 export default function RegisterScreen() {
   const { state, dispatch } = useContext(Store);
