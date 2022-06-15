@@ -23,6 +23,12 @@ export default function RegisterScreen() {
   const router = useRouter();
   const { redirect } = router.query;
 
+  useEffect(() => {
+    if (userInfo) {
+      router.push(redirect || '/');
+    }
+  }, [router, userInfo, redirect]);
+
   const {
     handleSubmit,
     control,
@@ -31,12 +37,24 @@ export default function RegisterScreen() {
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const submitHandler = async ({
-    name,
-    email,
-    password,
-    confirmPassword,
-  }) => {};
+  const submitHandler = async ({ name, email, password, confirmPassword }) => {
+    if (password !== confirmPassword) {
+      enqueueSnackbar("Passwords don't match", { variant: 'error' });
+      return;
+    }
+    try {
+      const { data } = await axios.post('/api/users/register', {
+        name,
+        email,
+        password,
+      });
+      dispatch({ type: 'USER_LOGIN', payload: data });
+      jsCookie.set('userInfo', JSON.stringify(data));
+      router.push(redirect || '/');
+    } catch (err) {
+      enqueueSnackbar(getError(err), { variant: 'error' });
+    }
+  };
   return (
     <Layout title="Register">
       <Form onSubmit={handleSubmit(submitHandler)}>
